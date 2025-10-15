@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data Directory</title>
+    <style>
+        /* General Styling and Responsiveness */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Search Bar Styling */
+        #search-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Table Styling */
+        .data-table-wrapper {
+            overflow-x: auto; /* Makes the table horizontally scrollable on small screens */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px; /* Ensures table is readable before enabling scroll */
+        }
+
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .data-table tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Image Column Styling */
+        .data-table td img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Responsive Mobile Cards (Optional - for very small screens) */
+        @media screen and (max-width: 600px) {
+            .data-table-wrapper {
+                border: none;
+                box-shadow: none;
+            }
+
+            .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {
+                display: block;
+            }
+
+            .data-table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            .data-table tr {
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+            .data-table td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+
+            .data-table td:before {
+                /* Create a label before the content on small screens */
+                position: absolute;
+                top: 0;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: #007bff;
+                content: attr(data-label); /* Use data-label attribute for content */
+            }
+
+            .data-table td:last-child {
+                border-bottom: 0;
+            }
+
+            .data-table td img {
+                margin: 5px 0 5px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Student/Cadet Details</h1>
+
+    <div id="search-container">
+        <input type="text" id="search-input" onkeyup="filterTable()" placeholder="Search by Name, Roll No, Course/Branch, or Phone  No...">
+    </div>
+
+    <div class="data-table-wrapper">
+        <div id="cardsContainer" class="cards-grid">
+            <!-- Card for 1 -->
+            <div class="card">
+                <img class="card-photo" src="Viswanath_Kumar_Sharma.jpg" alt="Viswanath Kumar Sharma">
+                <div class="card-body">
+                    <h3 class="card-name">Viswanath Kumar Sharma</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-03-14</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B Tech CSE CS 2nd year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 8341976793</p>
+                </div>
+            </div>
+            <!-- Card for 2 -->
+            <div class="card">
+                <img class="card-photo" src="Mohan_bheemuni.jpg" alt="Mohan bheemuni">
+                <div class="card-body">
+                    <h3 class="card-name">Mohan bheemuni</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2008-01-26</p>
+                    <p class="card-field card-course"><strong>Course:</strong> BSC CHEMISTRY 1ST YEAR</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 7036514372</p>
+                </div>
+            </div>
+            <!-- Card for 3 -->
+            <div class="card">
+                <img class="card-photo" src="Naresh_Surapathi.jpg" alt="Naresh Surapathi">
+                <div class="card-body">
+                    <h3 class="card-name">Naresh Surapathi</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2006-10-25</p>
+                    <p class="card-field card-course"><strong>Course:</strong> Bsc Electronics</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9182407792</p>
+                </div>
+            </div>
+            <!-- Card for 4 -->
+            <div class="card">
+                <img class="card-photo" src="SUMEET_KUMAR_SHARMA.jpg" alt="SUMEET KUMAR SHARMA">
+                <div class="card-body">
+                    <h3 class="card-name">SUMEET KUMAR SHARMA</h3>
+                    <p class="card-title badge-bravo">bravo company senior</p>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2008-07-23</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B PHARMACY 1st year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 6302552291</p>
+                </div>
+            </div>
+            <!-- Card for 5 -->
+            <div class="card">
+                <img class="card-photo" src="Bantupalli_Rishik_Naidu.jpg" alt="Bantupalli Rishik Naidu">
+                <div class="card-body">
+                    <h3 class="card-name">Bantupalli Rishik Naidu</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-08-11</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B Tech ECE(VLSIT) 1ST YEAR</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 7416836349</p>
+                </div>
+            </div>
+            <!-- Card for 6 -->
+            <div class="card">
+                <img class="card-photo" src="HEMANTH_KUMAR_J.jpg" alt="HEMANTH KUMAR J">
+                <div class="card-body">
+                    <h3 class="card-name">HEMANTH KUMAR J</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2005-02-21</p>
+                    <p class="card-field card-course"><strong>Course:</strong> CSE core 2nd year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 6301112816</p>
+                </div>
+            </div>
+            <!-- Card for 7 -->
+            <div class="card">
+                <img class="card-photo" src="AMAN_CHOUDARI.jpg" alt="AMAN CHOUDARI">
+                <div class="card-body">
+                    <h3 class="card-name">AMAN CHOUDARI</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-04-22</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B Tech CSE ( core ) 1st year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9664405892</p>
+                </div>
+            </div>
+            <!-- Card for 8 -->
+            <div class="card">
+                <img class="card-photo" src="Kuntakatta_Mahammad_Hussain.jpg" alt="Kuntakatta Mahammad Hussain">
+                <div class="card-body">
+                    <h3 class="card-name">Kuntakatta Mahammad Hussain</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2006-12-28</p>
+                    <p class="card-field card-course"><strong>Course:</strong> BA Political Science</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 7732005362</p>
+                </div>
+            </div>
+            <!-- Card for 9 -->
+            <div class="card">
+                <img class="card-photo" src="Pavan_Deepak_Seeramreddi.jpg" alt="Pavan Deepak Seeramreddi">
+                <div class="card-body">
+                    <h3 class="card-name">Pavan Deepak Seeramreddi</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-02-19</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B Tech CSE (CORE) 2nd year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9347556760</p>
+                </div>
+            </div>
+            <!-- Card for 10 -->
+            <div class="card">
+                <img class="card-photo" src="Piyush_Prasad.jpg" alt="Piyush Prasad">
+                <div class="card-body">
+                    <h3 class="card-name">Piyush Prasad</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-06-02</p>
+                    <p class="card-field card-course"><strong>Course:</strong> Bsc Food science and technology</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 8019507590</p>
+                </div>
+            </div>
+            <!-- Card for 11 -->
+            <div class="card">
+                <img class="card-photo" src="Kolli_Gurumurthy.jpg" alt="Kolli Gurumurthy">
+                <div class="card-body">
+                    <h3 class="card-name">Kolli Gurumurthy</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2008-05-03</p>
+                    <p class="card-field card-course"><strong>Course:</strong> BA economics 1st year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 2528 0480 8328</p>
+                </div>
+            </div>
+            <!-- Card for 12 -->
+            <div class="card">
+                <img class="card-photo" src="PERI_UMA_KARTHIKEYA_ANJANI_MANIKANTA.jpg" alt="PERI UMA KARTHIKEYA ANJANI MANIKANTA">
+                <div class="card-body">
+                    <h3 class="card-name">PERI UMA KARTHIKEYA ANJANI MANIKANTA</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-11-02</p>
+                    <p class="card-field card-course"><strong>Course:</strong> BA LLB (HONS)</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 6508 2160 5904</p>
+                </div>
+            </div>
+            <!-- Card for 13 -->
+            <div class="card">
+                <img class="card-photo" src="DADI_Vignesh.jpg" alt="DADI Vignesh">
+                <div class="card-body">
+                    <h3 class="card-name">DADI Vignesh</h3>
+                    <p class="card-title badge-alfa">alfa company senior</p>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2004-10-08</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B.TECH Civil 2nd year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9989567289</p>
+                </div>
+            </div>
+            <!-- Card for 14 -->
+            <div class="card">
+                <img class="card-photo" src="Pritham_Singh.jpg" alt="Pritham Singh">
+                <div class="card-body">
+                    <h3 class="card-name">Pritham Singh</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2006-01-01</p>
+                    <p class="card-field card-course"><strong>Course:</strong> Bsc Nursing 2nd year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 8340241339</p>
+                </div>
+            </div>
+            <!-- Card for 15 -->
+            <div class="card">
+                <img class="card-photo" src="Subhankar_Sahu.jpg" alt="Subhankar Sahu">
+                <div class="card-body">
+                    <h3 class="card-name">Subhankar Sahu</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2006-12-08</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B Tech CSE ( core ) 1st year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9502646036</p>
+                </div>
+            </div>
+            <!-- Card for 16 -->
+            <div class="card">
+                <img class="card-photo" src="Gollu_madhu_bhagavan_naidu.jpg" alt="Gollu madhu bhagavan naidu">
+                <div class="card-body">
+                    <h3 class="card-name">Gollu madhu bhagavan naidu</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-05-25</p>
+                    <p class="card-field card-course"><strong>Course:</strong> bsc biotechnology</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 4907 2469 2285</p>
+                </div>
+            </div>
+            <!-- Card for 17 -->
+            <div class="card">
+                <img class="card-photo" src="Chetla_Sai_Ganesh_Reddy.jpg" alt="Chetla Sai Ganesh Reddy">
+                <div class="card-body">
+                    <h3 class="card-name">Chetla Sai Ganesh Reddy</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2008-08-21</p>
+                    <p class="card-field card-course"><strong>Course:</strong> BTech CSE(AIML)1st Year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 8341835706</p>
+                </div>
+            </div>
+            <!-- Card for 18 -->
+            <div class="card">
+                <img class="card-photo" src="MADDIRALA_SRIRAMA_KASYAP.jpg" alt="MADDIRALA SRIRAMA KASYAP">
+                <div class="card-body">
+                    <h3 class="card-name">MADDIRALA SRIRAMA KASYAP</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2004-08-15</p>
+                    <p class="card-field card-course"><strong>Course:</strong> BCOM ACCA 1st YEAR</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9100366217</p>
+                </div>
+            </div>
+            <!-- Card for 19 -->
+            <div class="card">
+                <img class="card-photo" src="PATHLAVATH_SHIVA_KUMAR.jpg" alt="PATHLAVATH SHIVA KUMAR">
+                <div class="card-body">
+                    <h3 class="card-name">PATHLAVATH SHIVA KUMAR</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2007-02-18</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B.comAcca 1st year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9391589806</p>
+                </div>
+            </div>
+            <!-- Card for 20 -->
+            <div class="card">
+                <img class="card-photo" src="Vamshi_Krishna_Vasireddy.jpg" alt="Vamshi Krishna Vasireddy">
+                <div class="card-body">
+                    <h3 class="card-name">Vamshi Krishna Vasireddy</h3>
+                    <p class="card-rank">CDT</p>
+                    <p class="card-field"><strong>Regimental No:</strong> <span class="card-regimental">Not Issued</span></p>
+                    <p class="card-field"><strong>Registration No:</strong> <span class="card-registration">—</span></p>
+                    <p class="card-field"><strong>DOB:</strong> 2005-03-15</p>
+                    <p class="card-field card-course"><strong>Course:</strong> B Tech CSE ( core ) 2nd year</p>
+                    <p class="card-field card-Phone "><strong>Phone :</strong> 9063015120</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterTable() {
+        // Filter cards by search input (name, regimental, registration, course, Phone )
+        var input = document.getElementById("search-input");
+        var filter = input.value.toUpperCase();
+        var cards = document.querySelectorAll('#cardsContainer .card');
+
+        cards.forEach(function(card){
+            var name = card.querySelector('.card-name')?.textContent || '';
+            var regimental = card.querySelector('.card-regimental')?.textContent || '';
+            var registration = card.querySelector('.card-registration')?.textContent || '';
+            var course = card.querySelector('.card-course')?.textContent || '';
+            var title = card.querySelector('.card-title')?.textContent || '';
+            var Phone  = card.querySelector('.card-Phone ')?.textContent || '';
+
+            var haystack = (name + ' ' + regimental + ' ' + registration + ' ' + course + ' ' + title + ' ' + Phone ).toUpperCase();
+            if (haystack.indexOf(filter) > -1) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+<style>
+    /* Cards grid styling */
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 12px;
+    }
+
+    .card-photo {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-top: 14px;
+        cursor: pointer;
+    }
+
+    .card-body {
+        padding: 10px 14px 16px;
+        width: 100%;
+    }
+
+    .card-name {
+        margin: 8px 0 4px;
+        font-size: 16px;
+    }
+
+    .card-title {
+        display: inline-block;
+        margin: 4px 0 8px;
+        padding: 4px 10px;
+        background: linear-gradient(180deg, #fff9c4, #fff176); /* subtle yellow badge */
+        color: #4a3b00;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 999px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+        text-transform: capitalize;
+    }
+    .card-title.badge-bravo {
+        background: linear-gradient(180deg, #d5f5e3, #82e0aa); /* green (match alfa) */
+        color: #0b3d1a;
+    }
+    .card-title.badge-alfa {
+        background: linear-gradient(180deg, #d5f5e3, #82e0aa); /* green */
+        color: #0b3d1a;
+    }
+
+    .card-rank {
+        margin: 0 0 8px;
+        color: #555;
+        font-size: 13px;
+    }
+
+    .card-field { margin: 6px 0; font-size: 13px; color: #333 }
+
+    .card-field strong { color: #007bff; font-weight: 600 }
+
+    @media (max-width: 500px) {
+        .card-photo { width: 96px; height: 96px }
+    }
+</style>
+
+<!-- Lightbox modal -->
+<div id="imgModal" class="img-modal" style="display:none;">
+    <div class="img-modal-inner">
+        <div class="img-modal-media">
+            <img class="img-modal-content" id="imgModalImg" alt="">
+            <button class="img-modal-close" id="imgModalClose" aria-label="Close">&times;</button>
+        </div>
+        <div id="imgModalCaption" class="img-modal-caption"></div>
+    </div>
+</div>
+
+<style>
+    /* Lightbox modal styles */
+    .img-modal {
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .img-modal-inner {
+        max-width: 1000px;
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .img-modal-media {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .img-modal-content {
+        max-width: 95%;
+        max-height: 80vh;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        display: block;
+    }
+
+    .img-modal-caption {
+        margin-top: 12px;
+        color: #fff;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .img-modal-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(0,0,0,0.6);
+        border: none;
+        color: #fff;
+        font-size: 28px;
+        line-height: 1;
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .img-modal-close:hover { background: rgba(0,0,0,0.8) }
+</style>
+
+<script>
+    // Attach click handlers to table images to open the modal
+    (function(){
+        var modal = document.getElementById('imgModal');
+        var modalImg = document.getElementById('imgModalImg');
+        var caption = document.getElementById('imgModalCaption');
+        var closeBtn = document.getElementById('imgModalClose');
+
+        // delegate click on images inside the cards container
+        var cardsContainer = document.getElementById('cardsContainer');
+        if (cardsContainer) {
+            cardsContainer.addEventListener('click', function(e){
+            var target = e.target || e.srcElement;
+            if (target && target.tagName === 'IMG') {
+                modal.style.display = 'flex';
+                modalImg.src = target.src;
+                modalImg.alt = target.alt || '';
+                caption.textContent = target.alt || '';
+                // prevent body scroll
+                document.body.style.overflow = 'hidden';
+            }
+            });
+        }
+
+        // Close handlers
+        closeBtn.addEventListener('click', function(){
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        // Click outside image closes modal
+        modal.addEventListener('click', function(e){
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ESC key closes modal
+        document.addEventListener('keydown', function(e){
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                if (modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+    })();
+</script>
+
+</body>
+</html>
